@@ -16,5 +16,17 @@ class TransactionEntityFactory {
 
             )
         }
+
+        fun domainFromEntity(entity: TransactionEntity) : TransactionDomain {
+            return TransactionDomain(
+                id = entity.id,
+                purchaseDate = entity.purchaseDate,
+                description = entity.description,
+                sector = entity.sector,
+                paymentMethod = entity.paymentMethod,
+                amount = entity.amount,
+                status = entity.status,
+            )
+        }
     }
 }

@@ -1,10 +1,10 @@
-package br.com.jonasdev.api_wallet.application.web.transaction
+package br.com.jonasdev.api_wallet.application.web.transaction.dto
 
 import br.com.jonasdev.api_wallet.domain.transaction.TransactionDomain
 import java.math.BigDecimal
 import java.time.LocalDate
 
-class TransactionInputDto(
+class TransactionRequestDto(
     val purchaseDate: LocalDate,
     val description: String,
     val sector: String,

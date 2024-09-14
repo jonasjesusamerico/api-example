@@ -1,4 +1,4 @@
-package br.com.jonasdev.api_wallet.infrastructure.configuration.transaction
+package br.com.jonasdev.api_wallet.infrastructure.configuration.beans.transaction
 
 import br.com.jonasdev.api_wallet.domain.transaction.service.TransactionDomainService
 import br.com.jonasdev.api_wallet.domain.transaction.service.TransactionService
