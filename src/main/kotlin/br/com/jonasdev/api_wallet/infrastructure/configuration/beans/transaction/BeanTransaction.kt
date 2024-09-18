@@ -1,8 +1,7 @@
 package br.com.jonasdev.api_wallet.infrastructure.configuration.beans.transaction
 
-import br.com.jonasdev.api_wallet.domain.transaction.service.TransactionDomainService
-import br.com.jonasdev.api_wallet.domain.transaction.service.TransactionService
-import br.com.jonasdev.api_wallet.infrastructure.repositoy.transaction.TransactionRepository
+import br.com.jonasdev.api_wallet.domain.repository.transaction.TransactionRepository
+import br.com.jonasdev.api_wallet.domain.service.transaction.TransactionDomainService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

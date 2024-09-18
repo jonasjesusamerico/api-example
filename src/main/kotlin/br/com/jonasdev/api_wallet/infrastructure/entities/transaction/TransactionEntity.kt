@@ -1,5 +1,6 @@
 package br.com.jonasdev.api_wallet.infrastructure.entities.transaction
 
+import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionEntityRepresentation
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -9,19 +10,18 @@ import java.time.LocalDate
 class TransactionEntity(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    override var id: Long? = null,
 
-    val purchaseDate: LocalDate,
+    override var purchaseDate: LocalDate = LocalDate.MIN,
 
-    val description: String,
+    override var description: String = "",
 
-    val sector: String,
+    override var sector: String = "",
 
-    val paymentMethod: String,
+    override var paymentMethod: String = "",
 
-    val amount: BigDecimal,
+    override var amount: BigDecimal = BigDecimal.ZERO,
 
-    var status: Boolean
-) {
+    override var status: Boolean = false
 
-}
+) : TransactionEntityRepresentation
