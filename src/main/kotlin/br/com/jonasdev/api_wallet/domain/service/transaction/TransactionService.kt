@@ -1,6 +1,9 @@
 package br.com.jonasdev.api_wallet.domain.service.transaction
 
+import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionRequestDto
+import br.com.jonasdev.api_wallet.domain.configuration.pageable.InternPageable
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
+import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl
 import java.util.*
 
 interface TransactionService {
@@ -9,7 +12,7 @@ interface TransactionService {
 
     fun findById(id: Long): Optional<TransactionDomainRepresentation>
 
-    fun findAll(): List<TransactionDomainRepresentation>
+    fun findAll(pageable: InternPageable<TransactionDomainRepresentation>): InternPageableImpl<TransactionDomainRepresentation>
 
     fun update(id: Long, transaction: TransactionDomainRepresentation)
 

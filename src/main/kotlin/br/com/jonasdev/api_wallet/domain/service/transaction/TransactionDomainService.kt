@@ -1,8 +1,11 @@
 package br.com.jonasdev.api_wallet.domain.service.transaction
 
+import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionRequestDto
+import br.com.jonasdev.api_wallet.domain.configuration.pageable.InternPageable
 import br.com.jonasdev.api_wallet.domain.model.transaction.TransactionDomain
 import br.com.jonasdev.api_wallet.domain.repository.transaction.TransactionRepository
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
+import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl
 import jakarta.persistence.EntityNotFoundException
 import java.util.*
 import kotlin.reflect.KClass
@@ -19,8 +22,8 @@ class TransactionDomainService(private val repository: TransactionRepository) : 
         return repository.findById(id)
     }
 
-    override fun findAll(): List<TransactionDomainRepresentation> {
-        return repository.findAll()
+    override fun findAll(pageable: InternPageable<TransactionDomainRepresentation>): InternPageableImpl<TransactionDomainRepresentation> {
+        return repository.findAll(pageable)
     }
 
     override fun update(id: Long, transaction: TransactionDomainRepresentation) {

@@ -1,8 +1,11 @@
 package br.com.jonasdev.api_wallet.infrastructure.repositoy.transaction
 
+import br.com.jonasdev.api_wallet.domain.configuration.pageable.InternPageable
 import br.com.jonasdev.api_wallet.domain.repository.transaction.TransactionRepository
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
 import br.com.jonasdev.api_wallet.infrastructure.entities.transaction.TransactionEntityFactory
+import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl
+import br.com.jonasdev.api_wallet.library.pageable.PageableConverter
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Component
 import java.util.*
@@ -19,8 +22,11 @@ class TransactionRepositoryImp(private val repository: TransactionRepositoryPost
             .map { t -> TransactionEntityFactory.domainFromEntity(t) }
     }
 
-    override fun findAll(): List<TransactionDomainRepresentation> {
-        return repository.findAll().map { t -> TransactionEntityFactory.domainFromEntity(t) }
+    override fun findAll(pageable: InternPageable<TransactionDomainRepresentation>): InternPageableImpl<TransactionDomainRepresentation> {
+
+        val page = repository.findAll(PageableConverter.convert(pageable))
+        val pageDomain = page.map { TransactionEntityFactory.domainFromEntity(it) }.toList()
+        return InternPageableImpl<TransactionDomainRepresentation>(pageDomain, page.number, page.size, page.totalElements, page.sort.toString())
     }
 
     override fun update(id: Long, transaction: TransactionDomainRepresentation) {

@@ -7,6 +7,7 @@ import br.com.jonasdev.api_wallet.application.web.transaction.dto.toDomain
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
 import br.com.jonasdev.api_wallet.domain.service.transaction.TransactionService
 import br.com.jonasdev.api_wallet.infrastructure.configuration.exception.CustomErrorControllerException
+import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -40,12 +41,26 @@ class TransactionController(private val service: TransactionService) {
     }
 
     @GetMapping()
-    fun findAll(): ResponseEntity<List<TransactionResponseDto>> {
-        val transactionDomainList = service.findAll()
+    fun findAll(
+        @RequestParam(name = "limit", defaultValue = "20") limit: Int,
+        @RequestParam(name = "offset", defaultValue = "0") offset: Int,
+        @RequestParam(name = "sort", defaultValue = "id asc") sort: String
+    ): ResponseEntity<InternPageableImpl<TransactionResponseDto>> {
 
-        val transactions = transactionDomainList
-            .map { t -> TransactionResponseDto().fromDomain(t) }
-        return ResponseEntity.ok(transactions)
+        val page = service.findAll(InternPageableImpl<TransactionDomainRepresentation>(offset, limit, sort))
+
+        val pageDomain = page.content()
+            ?.map { t -> TransactionResponseDto().fromDomain(t) }
+
+        return ResponseEntity.ok(
+            InternPageableImpl<TransactionResponseDto>(
+                pageDomain,
+                page.pageNumber(),
+                page.pageSize(),
+                page.totalElements(),
+                page.sort()
+            )
+        )
     }
 
     @PutMapping("/{id}")
