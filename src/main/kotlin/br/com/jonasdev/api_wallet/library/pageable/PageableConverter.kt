@@ -14,7 +14,7 @@ object PageableConverter {
     }
 
     private fun parseSortString(sort: String?): Sort {
-        if (sort == null || sort.isEmpty()) {
+        if (sort.isNullOrEmpty()) {
             return Sort.unsorted()
         }
         val parts = sort.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()

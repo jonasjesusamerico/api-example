@@ -5,9 +5,4 @@ import org.springframework.http.HttpStatus
 class CustomErrorControllerException(
     message: String,
     val httpStatus: HttpStatus
-) : RuntimeException(message) {
-
-    fun getStatusCode(): HttpStatus {
-        return this.httpStatus
-    }
-}
+) : RuntimeException(message)

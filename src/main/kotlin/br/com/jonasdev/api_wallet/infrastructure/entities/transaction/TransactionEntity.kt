@@ -25,3 +25,4 @@ class TransactionEntity(
     override var status: Boolean = false
 
 ) : TransactionEntityRepresentation
+

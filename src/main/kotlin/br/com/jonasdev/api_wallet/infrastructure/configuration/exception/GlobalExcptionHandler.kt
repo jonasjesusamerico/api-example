@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
-
 @ControllerAdvice
 class GlobalExcptionHandler {
 
@@ -32,8 +31,7 @@ class GlobalExcptionHandler {
     @ExceptionHandler(CustomErrorControllerException::class)
     fun handleCustomException(ex: CustomErrorControllerException): ResponseEntity<ErrorMessage> {
         return ResponseEntity
-            .status(ex.getStatusCode())
-            .body(ErrorMessageImpl(ex.message, ex.getStatusCode()))
+            .status(ex.httpStatus)
+            .body(ErrorMessageImpl(ex.message, ex.httpStatus))
     }
-
 }

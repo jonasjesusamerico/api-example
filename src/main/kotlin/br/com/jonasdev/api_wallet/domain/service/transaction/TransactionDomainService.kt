@@ -34,7 +34,6 @@ class TransactionDomainService(private val repository: TransactionRepository) : 
     }
 
     override fun updateFields(id: Long, fieldValue: Map<String, Any>) {
-
         val transaction = repository.findById(id)
             .orElseThrow { EntityNotFoundException("Transaction with id $id not found.") }
 
@@ -62,9 +61,5 @@ class TransactionDomainService(private val repository: TransactionRepository) : 
         }
 
         return repository.create(transaction)
-
-
     }
-
-
 }

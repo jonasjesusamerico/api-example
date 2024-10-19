@@ -31,5 +31,3 @@ fun TransactionRequest.toDomain() = TransactionDomain(
     amount = this.amount,
     status = this.status
 )
-
-

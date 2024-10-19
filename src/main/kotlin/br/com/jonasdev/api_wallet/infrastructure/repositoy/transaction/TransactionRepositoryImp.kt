@@ -26,7 +26,7 @@ class TransactionRepositoryImp(private val repository: TransactionRepositoryPost
 
         val page = repository.findAll(PageableConverter.convert(pageable))
         val pageDomain = page.map { TransactionEntityFactory.domainFromEntity(it) }.toList()
-        return InternPageableImpl<TransactionDomainRepresentation>(pageDomain, page.number, page.size, page.totalElements, page.sort.toString())
+        return InternPageableImpl(pageDomain, page.number, page.size, page.totalElements, page.sort.toString())
     }
 
     override fun update(id: Long, transaction: TransactionDomainRepresentation) {
@@ -46,6 +46,4 @@ class TransactionRepositoryImp(private val repository: TransactionRepositoryPost
 
         throw EntityNotFoundException("Transaction with id $id does not exist.")
     }
-
-
 }

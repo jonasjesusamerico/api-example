@@ -14,7 +14,7 @@ class ErrorMessageImpl(
         return httpStatus
     }
 
-    override fun getMenssage(): String? {
+    override fun getMessage(): String? {
         return message
     }
 }

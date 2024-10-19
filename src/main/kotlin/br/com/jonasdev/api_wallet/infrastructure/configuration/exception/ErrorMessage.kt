@@ -5,11 +5,10 @@ import org.springframework.http.HttpStatus
 
 interface ErrorMessage {
 
-
     fun getCode(): Int
 
     fun getStatus(): HttpStatus
 
-    fun getMenssage(): String?
+    fun getMessage(): String?
 
 }
