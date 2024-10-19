@@ -1,6 +1,5 @@
 package br.com.jonasdev.api_wallet.domain.service.transaction
 
-import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionRequestDto
 import br.com.jonasdev.api_wallet.domain.configuration.pageable.InternPageable
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
 import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl

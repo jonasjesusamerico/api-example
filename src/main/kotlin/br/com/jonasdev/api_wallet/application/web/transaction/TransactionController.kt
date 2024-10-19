@@ -1,7 +1,7 @@
 package br.com.jonasdev.api_wallet.application.web.transaction
 
-import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionRequestDto
-import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionResponseDto
+import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionRequest
+import br.com.jonasdev.api_wallet.application.web.transaction.dto.TransactionResponse
 import br.com.jonasdev.api_wallet.application.web.transaction.dto.fromDomain
 import br.com.jonasdev.api_wallet.application.web.transaction.dto.toDomain
 import br.com.jonasdev.api_wallet.domain.representation.transaction.TransactionDomainRepresentation
@@ -20,13 +20,13 @@ class TransactionController(private val service: TransactionService) {
 
 
     @PostMapping
-    fun create(@RequestBody dto: TransactionRequestDto): ResponseEntity<TransactionResponseDto> {
+    fun create(@RequestBody dto: TransactionRequest): ResponseEntity<TransactionResponse> {
         service.create(dto.toDomain())
-        return ResponseEntity.ok().build<TransactionResponseDto>()
+        return ResponseEntity.ok().build<TransactionResponse>()
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): ResponseEntity<TransactionResponseDto> {
+    fun findById(@PathVariable id: Long): ResponseEntity<TransactionResponse> {
         val transactionDomain: Optional<TransactionDomainRepresentation> = service.findById(id)
 
         if (transactionDomain.isPresent.not()) {
@@ -36,7 +36,7 @@ class TransactionController(private val service: TransactionService) {
             )
         }
 
-        val dto = TransactionResponseDto().fromDomain(transactionDomain.get())
+        val dto = TransactionResponse().fromDomain(transactionDomain.get())
         return ResponseEntity.ok(dto)
     }
 
@@ -45,15 +45,15 @@ class TransactionController(private val service: TransactionService) {
         @RequestParam(name = "limit", defaultValue = "20") limit: Int,
         @RequestParam(name = "offset", defaultValue = "0") offset: Int,
         @RequestParam(name = "sort", defaultValue = "id asc") sort: String
-    ): ResponseEntity<InternPageableImpl<TransactionResponseDto>> {
+    ): ResponseEntity<InternPageableImpl<TransactionResponse>> {
 
         val page = service.findAll(InternPageableImpl<TransactionDomainRepresentation>(offset, limit, sort))
 
         val pageDomain = page.content()
-            ?.map { t -> TransactionResponseDto().fromDomain(t) }
+            ?.map { t -> TransactionResponse().fromDomain(t) }
 
         return ResponseEntity.ok(
-            InternPageableImpl<TransactionResponseDto>(
+            InternPageableImpl<TransactionResponse>(
                 pageDomain,
                 page.pageNumber(),
                 page.pageSize(),
@@ -66,26 +66,26 @@ class TransactionController(private val service: TransactionService) {
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: Long,
-        @RequestBody dto: TransactionRequestDto
-    ): ResponseEntity<TransactionResponseDto> {
+        @RequestBody dto: TransactionRequest
+    ): ResponseEntity<TransactionResponse> {
         service.update(id, dto.toDomain())
-        return ResponseEntity.accepted().build<TransactionResponseDto>()
+        return ResponseEntity.accepted().build<TransactionResponse>()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<TransactionResponseDto> {
+    fun delete(@PathVariable id: Long): ResponseEntity<TransactionResponse> {
         service.delete(id)
 
-        return ResponseEntity.noContent().build<TransactionResponseDto>()
+        return ResponseEntity.noContent().build<TransactionResponse>()
     }
 
     @PatchMapping("/{id}")
     fun updateFields(
         @PathVariable id: Long,
         @RequestBody fieldValue: Map<String, Any>
-    ): ResponseEntity<TransactionResponseDto> {
+    ): ResponseEntity<TransactionResponse> {
         service.updateFields(id, fieldValue)
-        return ResponseEntity.accepted().build<TransactionResponseDto>()
+        return ResponseEntity.accepted().build<TransactionResponse>()
     }
 
 
