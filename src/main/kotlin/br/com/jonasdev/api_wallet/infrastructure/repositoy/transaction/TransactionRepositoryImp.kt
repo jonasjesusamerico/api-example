@@ -8,6 +8,7 @@ import br.com.jonasdev.api_wallet.library.pageable.InternPageableImpl
 import br.com.jonasdev.api_wallet.library.pageable.PageableConverter
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Component
@@ -17,6 +18,7 @@ class TransactionRepositoryImp(private val repository: TransactionRepositoryPost
         repository.save(TransactionEntityFactory.fromDomain(transaction))
     }
 
+    @Transactional(readOnly = true)
     override fun findById(id: Long): Optional<TransactionDomainRepresentation> {
         return repository.findById(id)
             .map { t -> TransactionEntityFactory.domainFromEntity(t) }
