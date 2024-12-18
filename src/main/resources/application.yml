@@ -1,15 +1,16 @@
-#server:
-#  servlet:
-#    context-path: /api
+server:
+  port: 8080
+  servlet:
+    context-path: /api-example
 
 spring:
   application:
-    name: api-wallet
+    name: api-example
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/wallet?application_name=application-primary'
-    url-replica: 'jdbc:postgresql://localhost:5432/wallet?application_name=application-replica'
-    username: 'wallet'
-    password: 'wallet'
+    url: 'jdbc:postgresql://localhost:5432/example?application_name=application-primary'
+    url-replica: 'jdbc:postgresql://localhost:5432/example?application_name=application-replica'
+    username: 'example'
+    password: 'example'
     driver-class-name: 'org.postgresql.Driver'
     hikari:
       primary:
@@ -36,7 +37,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
   flyway:
     enabled: false
     locations: classpath:db/migration

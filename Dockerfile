@@ -15,8 +15,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copiando o JAR gerado do estágio de build anterior para o container final
-COPY --from=build /app/build/libs/api-wallet-0.0.1-SNAPSHOT.jar /app/api-wallet-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/build/libs/api-example-0.0.1-SNAPSHOT.jar /app/api-example-0.0.1-SNAPSHOT.jar
 
 # Definindo o comando de entrada para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "/app/api-wallet-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/api-example-0.0.1-SNAPSHOT.jar"]
 

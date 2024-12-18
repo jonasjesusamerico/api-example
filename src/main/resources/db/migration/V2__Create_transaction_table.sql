@@ -1,4 +1,4 @@
-CREATE TABLE transaction
+CREATE TABLE Customers
 (
     id             BIGSERIAL PRIMARY KEY,
     purchase_date  DATE           NOT NULL,
